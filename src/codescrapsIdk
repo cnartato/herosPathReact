@@ -1,0 +1,80 @@
+
+
+    // let interpolatedPos = interpolatePoses(posA, posB)
+
+    // setstepname(currentTime.toLocaleDateString()) // Set display to Current time
+    // // const nextStep = interpolatedPos
+    // const stepToPush = [nextStep.lat, nextStep.long]
+
+    // setFocusPos(stepToPush)
+
+    // setPoses(updatedPointHistory)
+
+    // if(!uploadedPoses?.length) return 
+    // if(!uploadedPoses[posStep]) return setPlaying(false)
+    // if(isNaN(uploadedPoses[posStep].datetime)) return setPlaying(false)
+
+    // if(positionHistoryPathMain.length)
+    // {
+    //   const prestepToPush = positionHistoryPathMain[positionHistoryPathMain.length-1]
+      
+    //   const dist = (distance(stepToPush, prestepToPush))
+    //   if(dist > 0.1) setFocusZoom(7)
+    //   else if (focusZoom < 12) setFocusZoom(focusZoom + 0.005)
+    // }
+
+
+
+
+
+  // function convertTimestamp(swiftTimestamp) {
+  //   let dateObj = new Date(swiftTimestamp * 1000); // convert to milliseconds
+
+  //   let date = dateObj.toISOString().split('T')[0]; // extract date (YYYY-MM-DD)
+  //   let time = dateObj.toISOString().split('T')[1].slice(0, -1); // extract time with milliseconds
+
+  //   return { date, time };
+  // }
+
+
+
+const distance = (xya,xyb) => {
+  const xa = xya[0]
+  const ya = xya[1]
+  const xb = xyb[0]
+  const yb = xyb[1]
+  return Math.sqrt(Math.pow(xb-xa,2) + Math.pow(yb-ya,2))
+}
+
+
+
+    // if(mostRecentPos && upcomingEstablishedPos)//If last 2 established points are defined (nearly always true)
+    // {
+    //   //If we had any established positions this buffer
+    //   // if(posesWithinPeriod.length) //then because this is 
+    //   //   stepsBetweenInitialInterpolatedAndEstablished = Math.abs((currentTime - upcomingEstablishedPos.datetime) / (stepSize * 3600000))
+    //   ///This should come after once we decide on the initial interpolated point
+
+    //   let stepsBetweenCurrentAndEstablished = Math.abs((currentTime - upcomingEstablishedPos.datetime) / (stepSize * 3600000))
+      
+    //   let ratio = 1 - (stepsBetweenCurrentAndEstablished / stepsBetweenInitialInterpolatedAndEstablished)
+
+    //   let posWithinPeriod = []
+    //   if( ratio == 0 || ratio == NaN || ratio == Infinity || ratio == -Infinity)
+    //   {
+    //     posWithinPeriod = [
+    //       (mostRecentPos[0] + (upcomingEstablishedPos.lat)) / 2,
+    //       (mostRecentPos[1] + (upcomingEstablishedPos.long)) / 2
+    //     ]
+    //   }
+    //   else
+    //   {
+    //     posWithinPeriod = [
+    //       (initialInterpolatedPos[0] + (upcomingEstablishedPos.lat * ratio)) / (1 + ratio),
+    //       (initialInterpolatedPos[1] + (upcomingEstablishedPos.long * ratio)) / (1 + ratio)
+    //     ]
+    //   }
+    
+    //   updatedHistoryPathMain.push(posWithinPeriod)
+    //   updatedHistoryPathInterpolatedOnly.push({key: Math.random(), lat: posWithinPeriod[0], lng: posWithinPeriod[1]})  
+    // }
