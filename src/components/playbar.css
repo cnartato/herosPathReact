@@ -1,8 +1,13 @@
 .bar
 {
-    width:200px;
-    height:200px;
     position: absolute;
     z-index: 44;
-    right:0
+    left:0;
+    bottom: 0;
+}
+
+.bar > div
+{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
 }
