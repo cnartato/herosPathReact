@@ -16,7 +16,7 @@ function App()
   const urlParams = new URLSearchParams(window.location.search)
 
 
-  const tick = urlParams.get('tick') || 100 
+  const tick = parseInt(urlParams.get('tick')) || 100 
   const centerCoords = [ 
     29.6260028,
     -82.3411691
