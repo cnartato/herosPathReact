@@ -9,7 +9,7 @@ import Move from './components/move';
 
 function App() 
 {
-  const DEBUGMODE = true
+  const DEBUGMODE = false
   const stepSize = .05 / 4 //1 hour
   const trailLength = 2
   const tick = 100
