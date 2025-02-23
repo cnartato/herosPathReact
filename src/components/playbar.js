@@ -45,7 +45,7 @@ function Playbar(props) {
           setCount(prev => prev + 1);  // Functional update ensures correct state increment
           props.newTimestamp();
         }
-    }, tickTime);
+    }, tickTime)
 
     useEffect(() => {
       // Add the event listener when the component mounts
