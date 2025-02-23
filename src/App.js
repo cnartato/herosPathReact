@@ -1,5 +1,6 @@
 import './App.css';
-import {addHours, parseCsv, findPosesWithinPeriod, findLastEstablishedPos, findFutureEstablishedPosOutsidePeriod, trimPath} from './Helper.js'
+import {addHours, parseCsv, findPosesWithinPeriod, findLastEstablishedPos,
+  formInterpolatedPoint, findFutureEstablishedPosOutsidePeriod, trimPath} from './Helper.js'
 import React, { useState, useEffect , useRef} from 'react';
 import { MapContainer, TileLayer , Marker, Polyline, useMap, useMapEvent} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
@@ -8,10 +9,10 @@ import Move from './components/move';
 
 function App() 
 {
-  const DEBUGMODE = false
+  const DEBUGMODE = true
   const stepSize = .05 / 4 //1 hour
   const trailLength = 2
-  const tick = 50
+  const tick = 100
   const centerCoords = [ 
     29.6260028,
     -82.3411691
@@ -34,13 +35,11 @@ function App()
 
   useEffect(() => {
     startingDateRef.current = startingDate; // Update ref with new startingDate
-  }, [startingDate]);
+  }, [startingDate])
 
   const newTimestamp = () => {
     if(!startingDate) return
 
-    //i/f(posStep > 31) debugger
-    //Prepare
     let newPosStep = posStep + 1
 
     let updatedHistoryPathMain = [...positionHistoryPathMain]
@@ -56,38 +55,16 @@ function App()
       const posWithinPeriod = posesWithinPeriod[i]
       console.log('Placing an established point', posWithinPeriod)
       updatedHistoryPathMain.push([posWithinPeriod.lat, posWithinPeriod.long])
-
-      //debug
-      //updatedHistoryPathInterpolatedOnly.push({ key:Math.random(), lat:posWithinPeriod.lat, lng:posWithinPeriod.long})
     }
     
-    //Determine interpolated point
     let upcomingEstablishedPos = findFutureEstablishedPosOutsidePeriod(currentTime, uploadedPoses)
     let mostRecentEstablishedPos = findLastEstablishedPos(currentTime, uploadedPoses)
-    
-    if(!upcomingEstablishedPos) return
 
-    //Based on currentTime, we'll interpolate as a weighted blend of the 2 established positions. :3
-    let timeDistanceBetweenPoints = Math.abs(upcomingEstablishedPos.datetime - mostRecentEstablishedPos.datetime)
-    let timeDistanceFromUpcomingEstablishedPos = Math.abs(currentTime - upcomingEstablishedPos.datetime)
-    let timeDistanceFromMostRecentEstablishedPos = Math.abs(currentTime - mostRecentEstablishedPos.datetime)
-
-    let timeDistanceFromUpcomingEstablishedPosPercentage = 1 - (timeDistanceFromUpcomingEstablishedPos / timeDistanceBetweenPoints)
-    let timeDistanceFromMostRecentEstablishedPosPercentage = 1 - (timeDistanceFromMostRecentEstablishedPos / timeDistanceBetweenPoints)
-
-    console.log(`Time distance % from future point: ` + timeDistanceFromUpcomingEstablishedPosPercentage)
-
-    let interpolatedPoint = [
-      ((mostRecentEstablishedPos.lat * timeDistanceFromMostRecentEstablishedPosPercentage) + (upcomingEstablishedPos.lat * timeDistanceFromUpcomingEstablishedPosPercentage)),
-      ((mostRecentEstablishedPos.long * timeDistanceFromMostRecentEstablishedPosPercentage) + (upcomingEstablishedPos.long * timeDistanceFromUpcomingEstablishedPosPercentage)),
-    ]
-    console.log(`timeDistanceFromMostRecentEstablishedPosPercentage ${timeDistanceFromMostRecentEstablishedPosPercentage}`)
-    console.log(`timeDistanceFromUpcomingEstablishedPosPercentage ${timeDistanceFromUpcomingEstablishedPosPercentage}`)
-
-    updatedHistoryPathMain.push(interpolatedPoint)
-
-
-    //Debug
+    if(upcomingEstablishedPos) 
+    {
+      let interpolatedPoint = formInterpolatedPoint(upcomingEstablishedPos,mostRecentEstablishedPos,currentTime)
+      updatedHistoryPathMain.push(interpolatedPoint)
+    }
 
     updatedHistoryPathInterpolatedOnly = [
       {lat: upcomingEstablishedPos.lat, lng: upcomingEstablishedPos.long},

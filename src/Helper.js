@@ -18,6 +18,20 @@ export function findPosesWithinPeriod(timeA, timeB, uploadedPoses) {
     })
 }
 
+export function formInterpolatedPoint(mostRecentEstablishedPos,upcomingEstablishedPos, currentTime)
+{
+    let timeDistanceBetweenPoints = Math.abs(upcomingEstablishedPos.datetime - mostRecentEstablishedPos.datetime)
+    let timeDistanceFromUpcomingEstablishedPos = Math.abs(currentTime - upcomingEstablishedPos.datetime)
+    let timeDistanceFromMostRecentEstablishedPos = Math.abs(currentTime - mostRecentEstablishedPos.datetime)
+
+    let timeDistanceFromUpcomingEstablishedPosPercentage = 1 - (timeDistanceFromUpcomingEstablishedPos / timeDistanceBetweenPoints)
+    let timeDistanceFromMostRecentEstablishedPosPercentage = 1 - (timeDistanceFromMostRecentEstablishedPos / timeDistanceBetweenPoints)
+
+    return [
+        ((mostRecentEstablishedPos.lat * timeDistanceFromMostRecentEstablishedPosPercentage) + (upcomingEstablishedPos.lat * timeDistanceFromUpcomingEstablishedPosPercentage)),
+        ((mostRecentEstablishedPos.long * timeDistanceFromMostRecentEstablishedPosPercentage) + (upcomingEstablishedPos.long * timeDistanceFromUpcomingEstablishedPosPercentage)),
+    ]
+}
 export function findFutureEstablishedPosOutsidePeriod(currentTime, uploadedPoses) {
     let end = new Date(currentTime);
     
