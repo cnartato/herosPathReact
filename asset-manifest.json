@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/herosPathReact/static/css/main.f46ca1ee.css",
+    "main.js": "/herosPathReact/static/js/main.31be11bb.js",
+    "static/js/453.64512fd7.chunk.js": "/herosPathReact/static/js/453.64512fd7.chunk.js",
+    "index.html": "/herosPathReact/index.html",
+    "main.f46ca1ee.css.map": "/herosPathReact/static/css/main.f46ca1ee.css.map",
+    "main.31be11bb.js.map": "/herosPathReact/static/js/main.31be11bb.js.map",
+    "453.64512fd7.chunk.js.map": "/herosPathReact/static/js/453.64512fd7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f46ca1ee.css",
+    "static/js/main.31be11bb.js"
+  ]
+}
