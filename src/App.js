@@ -12,7 +12,11 @@ function App()
   const DEBUGMODE = false
   const stepSize = .05 / 4 //1 hour
   const trailLength = 2
-  const tick = 100
+
+  const urlParams = new URLSearchParams(window.location.search)
+
+
+  const tick = urlParams.get('tick') || 100 
   const centerCoords = [ 
     29.6260028,
     -82.3411691
