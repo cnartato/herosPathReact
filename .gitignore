@@ -24,4 +24,8 @@ yarn-error.log*
 
 public/*.csv
 
+# GPS Data
+GpsData/*.csv
+GpsData/*.py
+
 .env 
