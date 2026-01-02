@@ -66,7 +66,7 @@ function Playbar(props) {
     };
 
     const slowDown = () => {
-        const newSpeed = Math.max(playbackSpeed / 2, 0.25); // Min 0.25x
+        const newSpeed = Math.max(playbackSpeed / 2, 0.0625); // Min 0.0625x (1/16th speed)
         if (props.onSpeedChange) {
             props.onSpeedChange(newSpeed);
         }
