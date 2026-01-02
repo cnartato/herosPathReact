@@ -10,4 +10,9 @@
 {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bolder;
+    color: white;
+    -webkit-text-stroke: 2px black;
+    text-stroke: 2px black;
+    paint-order: stroke fill;
+    margin: 5px 0;
 }
